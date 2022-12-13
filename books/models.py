@@ -4,12 +4,12 @@ from django.db import models
 # Create your models here.
 
 class Books(models.Model):
-    book_name = models.CharField("Название книги", null=True)
-    author_name = models.CharField("Автор", null=True)
-    genre = models.CharField("Жанр", null=True)
+    book_name = models.CharField("Название книги",max_length=10000, null=True)
+    author_name = models.CharField("Автор", max_length=10000,null=True)
+    genre = models.CharField("Жанр", max_length=10000,null=True)
     score = models.IntegerField("Оценка", blank=True, null=True)
     pages_count = models.IntegerField("Количество страниц", blank=True, null=True)
-    description = models.CharField("Описание", null=True)
+    description = models.TextField("Описание",max_length=10000, null=True)
     pic_link = models.URLField("Ссылка на картинку", null=True)
     book_link = models.URLField("Ссылка на книгу", null=True)
 
