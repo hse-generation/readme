@@ -1,13 +1,13 @@
 from django.db import models
 
 class Users(models.Model):
-    name = models.CharField("Имя", max_length=20, null=True)
-    last_name = models.CharField("Фамилия", max_length=20, null=True)
+    name = models.CharField("Имя", max_length=10000, null=True)
+    last_name = models.CharField("Фамилия",max_length=10000, null=True)
     birthdate = models.DateField("Дата рождения", null=True)
-    login = models.CharField("Логин", max_length=10, null=True)
-    password = models.CharField("Пароль", max_length=100, null=True)
-    about = models.TextField("О себе", null=True)
-    email = models.EmailField("Почта", max_length=200, null=True)
+    login = models.CharField("Логин", max_length=10000,null=True)
+    password = models.CharField("Пароль",max_length=10000, null=True)
+    about = models.TextField("О себе",max_length=10000, null=True)
+    email = models.EmailField("Почта", max_length=10000, null=True)
     profile_picture = models.ImageField(upload_to='images', null=True, blank=True)
     # github_link = models.CharField("Ccылка на github", max_length=200, null=True)
     # telegram = models.CharField("Ник в телеграм", max_length=200, null=True)
