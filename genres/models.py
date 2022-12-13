@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Genres(models.Model):
-    genre_name = models.CharField("Имя", max_length=20, null=True)
+    genre_name = models.CharField("Имя",  null=True)
     creat_date = models.DateField("Дата добавления", null=True)
     # github_link = models.CharField("Ccылка на github", max_length=200, null=True)
     # telegram = models.CharField("Ник в телеграм", max_length=200, null=True)
