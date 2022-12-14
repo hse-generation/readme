@@ -8,7 +8,7 @@ class Users(models.Model):
     password = models.CharField("Пароль",max_length=10000, null=True)
     about = models.TextField("О себе",max_length=10000, null=True)
     email = models.EmailField("Почта", max_length=10000, null=True)
-    profile_picture = models.ImageField(upload_to='images', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='images', null=True, blank=True, default="avatar.jpg")
     # github_link = models.CharField("Ccылка на github", max_length=200, null=True)
     # telegram = models.CharField("Ник в телеграм", max_length=200, null=True)
     # phone_number = models.CharField("Номер телефона", max_length=15, null=True)
