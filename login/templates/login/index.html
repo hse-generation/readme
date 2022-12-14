@@ -1,7 +1,6 @@
 {% load static %}
 
 {% include 'login/blocks/header.html' %}
-
     <div class="container-xxl">
       <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
@@ -73,17 +72,11 @@
               <h4 class="mb-2">Добро пожаловать в README! 👋</h4>
               <p class="mb-4">Войдите в аккаунт и начните свое путешествие в мир чтения</p>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
+              <form id="formAuthentication" class="mb-3" method="POST">
+                {% csrf_token %}
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="email"
-                    name="email-username"
-                    placeholder="Введите email "
-                    autofocus
-                  />
+                  {{ form.email }}
                 </div>
                 <div class="mb-3 form-password-toggle">
 <!--                  <div class="d-flex justify-content-between">-->
@@ -94,14 +87,7 @@
 <!--                  </div>-->
                   <label for="password" class="form-label">Пароль</label>
                   <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-control"
-                      name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
-                    />
+                    {{ form.password }}
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
