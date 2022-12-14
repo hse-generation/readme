@@ -10,8 +10,8 @@ class Books(models.Model):
     score = models.IntegerField("Оценка", blank=True, null=True)
     pages_count = models.IntegerField("Количество страниц", blank=True, null=True)
     description = models.TextField("Описание",max_length=10000, null=True)
-    pic_link = models.URLField("Ссылка на картинку", null=True)
-    book_link = models.URLField("Ссылка на книгу", null=True)
+    pic_link = models.URLField("Ссылка на картинку", max_length=10000, null=True)
+    book_link = models.URLField("Ссылка на книгу", max_length=10000, null=True)
 
     def __str__(self):
         return self.book_name
