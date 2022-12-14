@@ -5,6 +5,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 
 def index(request):
+
+    if 'user_id' not in request.session: # если пользователь не авторизован, отправляем на страницу входа
+        return redirect('login')
+
     data = {}  # дата (данные), которая отправляется в view
     if 'save_account_info' in request.POST:  # проверяем была ли нажата кнопочка с name = save_account_info в post запросе
         info = request.POST
