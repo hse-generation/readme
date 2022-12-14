@@ -6,61 +6,41 @@
 
 {% include 'home/blocks/navbar.html' %}
 
-              <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
+<!-- Content wrapper -->
+<div class="content-wrapper">
+    <!-- Content -->
 
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"></span>Жанры:</h4>
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"></span>Жанры</h4>
 
-              <div class="row mb-5">
-                <div class="col-md">
-                  <div class="card mb-3">
+
+        <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
+             {%  for genre in genres %}
+              <div class="col-md">
+                <div class="card mb-3">
                     <div class="row g-0">
-                      <div class="col-md-4">
-                        <img class="card-img card-img-left" src="{% static './home/assets/img/elements/12.jpg' %}" alt="Card image" />
-                      </div>
-                      <div class="col-md-8">
-                        <div class="card-body">
-
-                          <a href="genres_books.html" class="menu-link" target="_blank">
-                            <h5 class="card-title">Название</h5>
-                          </a>
-
-                          <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to additional content.
-                            This content is a little bit longer.
-                          </p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <div class="col-md-4">
+                            <img class="card-img card-img-left" src="{% static './home/img/genres/' %}{{genre.picture_link}}"
+                                 alt="Card image"/>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md">
-                  <div class="card mb-3">
-                    <div class="row g-0">
-                      <div class="col-md-8">
-                        <div class="card-body">
-                          <a href="genres_books.html" class="menu-link" target="_blank">
-                            <h5 class="card-title">Название</h5>
-                          </a>
-                          <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to additional content.
-                            This content is a little bit longer.
-                          </p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <div class="col-md-8">
+                            <div class="card-body">
+
+                                <a href="" class="menu-link" target="_blank">
+                                    <h5 class="card-title">{{ genre.genre_name }}</h5>
+                                </a>
+
+                                <p class="card-text">
+                                    {{ genre.description }}
+                                </p>
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-md-4">
-                        <img class="card-img card-img-right" src="{% static './home/assets/img/elements/17.jpg' %}" alt="Card image" />
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </div>
 
-
+              {% endfor %}
+        </div>
 
 
         {% include 'home/blocks/footer.html' %}
