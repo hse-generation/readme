@@ -71,63 +71,58 @@
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
         <li class="menu-header small text-uppercase">
-          <span class="menu-header-text">Страницы</span>
+            <span class="menu-header-text">Страницы</span>
         </li>
 
         <li class="menu-item active open">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-collection"></i>
-            <div data-i18n="Basic">Книги</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item active">
-              <a href="{% url 'home' %}" class="menu-link" target="_blank">
-                <div data-i18n="Basic"> Подборки </div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="{% url 'genres' %}" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Жанры</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="{% url 'authors' %}" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Авторы</div>
-              </a>
-            </li>
-          </ul>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Книги</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item active">
+                    <a href="{% url 'home' %}" class="menu-link" target="_blank">
+                        <div data-i18n="Basic"> Подборки</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{% url 'genres' %}" class="menu-link" target="_blank">
+                        <div data-i18n="Basic">Жанры</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{% url 'authors' %}" class="menu-link" target="_blank">
+                        <div data-i18n="Basic">Авторы</div>
+                    </a>
+                </li>
+            </ul>
         </li>
 
 
         <li class="menu-item">
-          <a href="../index.html" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Analytics">Аналитика</div>
-          </a>
+            <a href="../index.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Аналитика</div>
+            </a>
         </li>
 
         <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-            <div>Авторизация</div>
-          </a>
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="{% url 'login' %}" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Вход</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="{% url 'register' %}" class="menu-link" target="_blank">
-                <div data-i18n="Basic">Регистрация</div>
-              </a>
-            </li>
-<!--            <li class="menu-item">-->
-<!--              <a href="auth-forgot-password-basic(change%20-%20логотип(-)).html" class="menu-link" target="_blank">-->
-<!--                <div data-i18n="Basic">Забыли пароль</div>-->
-<!--              </a>-->
-<!--            </li>-->
-          </ul>
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div>Авторизация</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="{% url 'login' %}" class="menu-link" target="_blank">
+                        <div data-i18n="Basic">Вход</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{% url 'register' %}" class="menu-link" target="_blank">
+                        <div data-i18n="Basic">Регистрация</div>
+                    </a>
+                </li>
+            </ul>
         </li>
 
 
