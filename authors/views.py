@@ -1,12 +1,23 @@
-import os
+# import os
+#
+# from django.shortcuts import render, redirect
+# from django.http import HttpResponse, HttpResponseRedirect
+# from django.urls import reverse_lazy, reverse
+#
+#
+#
+# def index(request):
+#     # return render(request, 'users/register.html', data)
+#     return render(request, 'authors/index.html')
+#
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse_lazy, reverse
 
+from authors.models import Authors
 
 
 def index(request):
-    # return render(request, 'users/register.html', data)
-    return render(request, 'authors/index.html')
+    data = {}
+    data['authors'] = Authors.objects.all()
+    return render(request, 'authors/index.html', data)
 
