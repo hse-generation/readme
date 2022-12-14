@@ -3,7 +3,7 @@ from django.db import models
 class Users(models.Model):
     name = models.CharField("Имя", max_length=10000, null=True)
     last_name = models.CharField("Фамилия",max_length=10000, null=True)
-    birthdate = models.DateField("Дата рождения", null=True)
+    birthdate = models.IntegerField("Год рождения", null=True)
     login = models.CharField("Логин", max_length=10000,null=True)
     password = models.CharField("Пароль",max_length=10000, null=True)
     about = models.TextField("О себе",max_length=10000, null=True)

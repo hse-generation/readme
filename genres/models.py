@@ -4,7 +4,6 @@ from django.db import models
 
 class Genres(models.Model):
     genre_name = models.CharField("Имя", max_length=100000, null=True)
-    creat_date = models.DateField("Дата добавления", null=True)
     description = models.TextField("Описание", null=True)
     picture_link = models.TextField("Ссылка на картину", max_length=200, null=True)
 

@@ -34,10 +34,9 @@ class AccountForm(ModelForm):
                 'placeholder': 'Введите почту',
                 'name': 'email',
             }),
-            'birthdate': DateTimeInput(attrs={
+            'birthdate': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'День рождения',
+                'placeholder': 'Год рождения',
                 'name': 'birthdate',
-                'type': 'date'
             }),
         }
