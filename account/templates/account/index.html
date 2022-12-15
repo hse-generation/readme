@@ -83,7 +83,8 @@
                                     возвращения не будет. Пожалуйста, будьте уверены.</p>
                             </div>
                         </div>
-                        <form id="formAccountDeactivation" onsubmit="return false">
+                        <form id="formAccountDeactivation" method="post">
+                            {% csrf_token %}
                             <div class="form-check mb-3">
                                 <input
                                         class="form-check-input"
@@ -95,9 +96,35 @@
                                 >Я подтверждаию удаление моего аккаунта</label
                                 >
                             </div>
-                            <button type="submit" class="btn btn-danger deactivate-account">Удалить
-                                Аккаунт
+                            <button type="button"  class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#modalToggle">
+                                Удалить Аккаунт
                             </button>
+                            <div class="modal fade"  id="modalToggle"  aria-labelledby="modalToggleLabel"  tabindex="-1"  style="display: none" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalToggleLabel">Modal 1</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div class="modal-body">Show a second modal and hide this one with the button below.</div>
+                              <div class="modal-footer">
+                                <button name="deactivate-account"
+                                  class="btn btn-danger"
+                                  data-bs-target="#modalToggle2"
+                                  data-bs-toggle="modal"
+                                  data-bs-dismiss="modal"
+                                >
+                                  Удалить
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                            </div>
                         </form>
                     </div>
                 </div>

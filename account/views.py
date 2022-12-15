@@ -5,11 +5,17 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 
 def index(request):
-
-    if 'user_id' not in request.session: # если пользователь не авторизован, отправляем на страницу входа
+    if 'user_id' not in request.session:  # если пользователь не авторизован, отправляем на страницу входа
         return redirect('login')
+    else:
+        user = Users.objects.filter(id=request.session['user_id']).values()
+        if len(user) == 0 or user[0]['status'] == 0:
+            return redirect('logout')
 
     data = {}  # дата (данные), которая отправляется в view
+    if 'deactivate-account' in request.POST:
+        Users.objects.filter(id=request.session['user_id']).update(status=0)
+        return redirect("account")
     if 'save_account_info' in request.POST:  # проверяем была ли нажата кнопочка с name = save_account_info в post запросе
         info = request.POST
         info_pic = AccountForm(request.POST, request.FILES)
@@ -32,3 +38,9 @@ def index(request):
     data['form'] = form
     data['profile_picture'] = user[0]['profile_picture']
     return render(request, 'account/index.html', data)
+
+
+def logout(request):
+    if 'user_id' in request.session.keys():
+        del request.session['user_id']
+    return redirect('home')
