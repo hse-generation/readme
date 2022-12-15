@@ -1,19 +1,6 @@
-# import os
-#
-# from django.shortcuts import render, redirect
-# from django.http import HttpResponse, HttpResponseRedirect
-# from django.urls import reverse_lazy, reverse
-#
-#
-#
-# def index(request):
-#     # return render(request, 'users/register.html', data)
-#     return render(request, 'authors/index.html')
-#
-
 from django.shortcuts import render, redirect
-
 from authors.models import Authors
+from books.models import Books
 
 
 def index(request):
@@ -21,3 +8,9 @@ def index(request):
     data['authors'] = Authors.objects.all()
     return render(request, 'authors/index.html', data)
 
+
+def get_author_books(request, author_id):
+    data = {}
+    data['books'] = Books.objects.filter(author_id__id=author_id).values()
+    data['author'] = Authors.objects.filter(id=author_id).values()[0]['author_name']
+    return render(request, 'authors/author-books.html', data)

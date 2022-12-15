@@ -49,16 +49,16 @@
                                     {{ form.last_name }}
                                 </div>
                                 <div class="mb-3 col-md-6">
+                                    <label for="birth_date" class="form-label">Год рождения</label>
+                                    {{ form.birthdate }}
+                                </div>
+                                <div class="mb-3 col-md-6">
                                     <label for="email" class="form-label">E-mail</label>
                                     {{ form.email }}
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="about_user" class="form-label">Расскжите о себе</label>
+                                    <label for="about_user" class="form-label">Расскажите о себе</label>
                                     {{ form.about }}
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="birth_date" class="form-label">Дата рождения</label>
-                                    {{ form.birthdate }}
                                 </div>
 
                             </div>
@@ -72,7 +72,7 @@
                     <!-- /Account -->
                 </div>
                 <div class="card">
-                    <h5 class="card-header">Удалить Акккаунт</h5>
+                    <h5 class="card-header">Удалить акккаунт</h5>
                     <div class="card-body">
                         <div class="mb-3 col-12 mb-0">
                             <div class="alert alert-warning">
@@ -85,17 +85,17 @@
                         </div>
                         <form id="formAccountDeactivation" method="post">
                             {% csrf_token %}
-                            <div class="form-check mb-3">
-                                <input
-                                        class="form-check-input"
-                                        type="checkbox"
-                                        name="accountActivation"
-                                        id="accountActivation"
-                                />
-                                <label class="form-check-label" for="accountActivation"
-                                >Я подтверждаию удаление моего аккаунта</label
-                                >
-                            </div>
+<!--                            <div class="form-check mb-3">-->
+<!--                                <input-->
+<!--                                        class="form-check-input"-->
+<!--                                        type="checkbox"-->
+<!--                                        name="accountActivation"-->
+<!--                                        id="accountActivation"-->
+<!--                                />-->
+<!--                                <label class="form-check-label" for="accountActivation"-->
+<!--                                >Я подтверждаю удаление моего аккаунта</label-->
+<!--                                >-->
+<!--                            </div>-->
                             <button type="button"  class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#modalToggle">
                                 Удалить Аккаунт
                             </button>
@@ -103,7 +103,7 @@
                                 <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h5 class="modal-title" id="modalToggleLabel">Modal 1</h5>
+                                <h5 class="modal-title" id="modalToggleLabel">ПРЕДУПРЕЖДАЕМ!!!</h5>
                                 <button
                                   type="button"
                                   class="btn-close"
@@ -111,7 +111,7 @@
                                   aria-label="Close"
                                 ></button>
                               </div>
-                              <div class="modal-body">Show a second modal and hide this one with the button below.</div>
+                              <div class="modal-body">Ваш аккаунт удалится навсегда :(</div>
                               <div class="modal-footer">
                                 <button name="deactivate-account"
                                   class="btn btn-danger"

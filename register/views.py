@@ -18,14 +18,13 @@ def index(request):
         form = RegistrationForm(request.POST)
         data['error'] = form
 
-        user = Users.objects.filter(login=info['login']).values()
+        user = Users.objects.filter(email=info['email']).values()
         if len(user) > 0:
             data['error'] = "Пользователь с таким логином уже существует"
         elif form.is_valid():
-            new_user = Users(login=info['login'], email=info['email'],
-                             password=hashlib.md5(info['password'].encode()).hexdigest())
+            new_user = Users(email=info['email'], password=hashlib.md5(info['password'].encode()).hexdigest())
             new_user.save()
-            user = Users.objects.filter(login=info['login']).values()
+            user = Users.objects.filter(email=info['email']).values()
             request.session['user_id'] = user[0]['id']
             request.session['name'] = user[0]['name']
             request.session['avatar'] = user[0]['profile_picture']

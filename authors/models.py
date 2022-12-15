@@ -7,7 +7,6 @@ class Authors(models.Model):
     author_description = models.TextField("Коротко об авторе", null=True)
 
 
-
     def __str__(self):
         return self.name
 

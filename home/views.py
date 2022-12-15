@@ -8,6 +8,6 @@ from books.models import Books
 
 def index(request):
     data = {}
-    data['books'] = Books.objects.all()[:10]
+    data['books'] = Books.objects.all()[7:13]
     return render(request, 'home/index.html', data)
 

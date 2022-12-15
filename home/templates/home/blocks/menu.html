@@ -6,7 +6,9 @@
         <span class="app-brand-logo demo">
         <img width="40" src="{% static './home/img/logo.png' %}">
         </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2"> readme </span>
+            <a href="{% url 'home' %}" class="menu-link">
+                <span class="app-brand-text demo menu-text fw-bolder ms-2"> readme </span>
+            </a>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -29,17 +31,17 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item active">
-                    <a href="{% url 'home' %}" class="menu-link" target="_blank">
+                    <a href="{% url 'home' %}" class="menu-link">
                         <div data-i18n="Basic"> Подборки</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{% url 'genres' %}" class="menu-link" target="_blank">
+                    <a href="{% url 'genres' %}" class="menu-link">
                         <div data-i18n="Basic">Жанры</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{% url 'authors' %}" class="menu-link" target="_blank">
+                    <a href="{% url 'authors' %}" class="menu-link">
                         <div data-i18n="Basic">Авторы</div>
                     </a>
                 </li>
@@ -48,7 +50,7 @@
 
 
         <li class="menu-item">
-            <a href="../index.html" class="menu-link">
+            <a href="{% url 'home' %}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Аналитика</div>
             </a>
@@ -62,12 +64,12 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="{% url 'login' %}" class="menu-link" target="_blank">
+                    <a href="{% url 'login' %}" class="menu-link" target="">
                         <div data-i18n="Basic">Вход</div>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="{% url 'register' %}" class="menu-link" target="_blank">
+                    <a href="{% url 'register' %}" class="menu-link">
                         <div data-i18n="Basic">Регистрация</div>
                     </a>
                 </li>
