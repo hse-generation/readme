@@ -15,7 +15,9 @@ def index(request):
         info_pic = AccountForm(request.POST, request.FILES)
         if info_pic.is_valid():
             info_pic.save()
+
         profile_picture = Users.objects.latest('id').profile_picture
+        Users.objects.latest('id').delete()
         Users.objects.filter(id=request.session['user_id']).update(name=info['name'],
                                                                    last_name=info['last_name'],
                                                                    about=info['about'],
@@ -28,4 +30,5 @@ def index(request):
         id=request.session['user_id']).values()  # берем из accounts вссех юзеров с id равный id пользака из сессии
     form = AccountForm(data=user[0])  # указываем в data значение из базы, чтобы автоматом выставлялись в поля
     data['form'] = form
+    data['profile_picture'] = user[0]['profile_picture']
     return render(request, 'account/index.html', data)

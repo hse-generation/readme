@@ -6,14 +6,9 @@ from django.forms import ModelForm, TextInput, Textarea, PasswordInput, DateInpu
 class RegistrationForm(ModelForm):
     class Meta:
         model = Users
-        fields = ['login', 'email', 'password']
+        fields = ['email', 'password']
 
         widgets = {
-            'login': TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Введите логин',
-                'name': 'login'
-            }),
             'email': EmailInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Введите почту',
