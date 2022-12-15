@@ -27,6 +27,8 @@ def index(request):
             new_user.save()
             user = Users.objects.filter(login=info['login']).values()
             request.session['user_id'] = user[0]['id']
+            request.session['name'] = user[0]['name']
+            request.session['avatar'] = user[0]['profile_picture']
             return redirect(reverse('account'))
         # else:
         #     data['error'] = "Ошибка ввода данных"
