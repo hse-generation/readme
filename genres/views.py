@@ -26,3 +26,9 @@ def index(request):
     data['genres'] = Genres.objects.all()[:10]
     return render(request, 'genres/index.html', data)
 
+def get_genre_books(request, genre_id):
+    data = {}
+    data['books'] = Books.objects.filter(genre_id__id=genre_id).values()
+    data['genre'] = Genres.objects.filter(id=genre_id).values()[0]['genre_name']
+    return render(request, 'genres/genre-books.html', data)
+
