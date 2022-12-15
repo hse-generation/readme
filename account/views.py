@@ -23,12 +23,16 @@ def index(request):
                                                                    last_name=info['last_name'],
                                                                    about=info['about'],
                                                                    birthdate=info['birthdate'],
-                                                                   email=info['email'],)
+                                                                   email=info['email'])
+        request.session['name'] = info['name']
         if info_pic.is_valid() and len(request.FILES) > 0:
             info_pic.save()
             profile_picture = Users.objects.latest('id').profile_picture
             Users.objects.latest('id').delete()
             Users.objects.filter(id=request.session['user_id']).update(profile_picture=profile_picture)
+            request.session['avatar'] = Users.objects.filter(id=request.session['user_id']).values()[0]['profile_picture']
+
+
         return redirect("account")
 
     user = Users.objects.filter(
