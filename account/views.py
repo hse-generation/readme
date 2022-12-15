@@ -19,17 +19,16 @@ def index(request):
     if 'save_account_info' in request.POST:  # проверяем была ли нажата кнопочка с name = save_account_info в post запросе
         info = request.POST
         info_pic = AccountForm(request.POST, request.FILES)
-        if info_pic.is_valid():
-            info_pic.save()
-
-        profile_picture = Users.objects.latest('id').profile_picture
-        Users.objects.latest('id').delete()
         Users.objects.filter(id=request.session['user_id']).update(name=info['name'],
                                                                    last_name=info['last_name'],
                                                                    about=info['about'],
                                                                    birthdate=info['birthdate'],
-                                                                   email=info['email'],
-                                                                   profile_picture=profile_picture)
+                                                                   email=info['email'],)
+        if info_pic.is_valid() and len(request.FILES) > 0:
+            info_pic.save()
+            profile_picture = Users.objects.latest('id').profile_picture
+            Users.objects.latest('id').delete()
+            Users.objects.filter(id=request.session['user_id']).update(profile_picture=profile_picture)
         return redirect("account")
 
     user = Users.objects.filter(
