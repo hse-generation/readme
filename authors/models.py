@@ -8,7 +8,7 @@ class Authors(models.Model):
 
 
     def __str__(self):
-        return self.name
+        return self.author_name
 
 
     class Meta:
