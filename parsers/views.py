@@ -7,6 +7,7 @@ from books.models import Books
 from genres.models import Genres
 from authors.models import Authors
 from books_genres.models import Books_genres
+from books_authors.models import Books_authors
 import pandas as pd
 from django.contrib.staticfiles.storage import staticfiles_storage
 import logging
@@ -72,7 +73,8 @@ def add_books_from_file(request):
             for author in authors:
                 author_name = author.strip()
                 author_id = Authors.objects.filter(author_name=author_name).values_list('id', flat=True).first()
-
+                books_genres_obj = Books_authors(author_id=author_id, books_id=books_obj.id)
+                books_genres_obj.save()
 
 
     data['info'] = 1
