@@ -1,0 +1,14 @@
+{% load static %}
+
+{% include 'home/blocks/header.html' %}
+
+{% include 'home/blocks/menu.html' %}
+
+{% include 'home/blocks/navbar.html' %}
+{{ info }}
+
+<a href="{% url 'add_genres_from_file' %}"> add_genres_from_file </a>
+<a href="{% url 'add_authors_from_file' %}"> add_authors_from_file </a>
+<a href="{% url 'add_books_from_file' %}"> add_books_from_file </a>
+
+{% include 'home/blocks/footer.html' %}
