@@ -1,0 +1,138 @@
+{% load static %}
+
+{% include 'home/blocks/header.html' %}
+
+{% include 'home/blocks/menu.html' %}
+
+{% include 'home/blocks/navbar.html' %}
+<div class="content-wrapper">
+                <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <!--    <h4 class="fw-bold py-3 mb-0">Обезьяна с гранатой:</h4>-->
+        <div class="row">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                    <h4 class="fw-bold py-1 mb-2 center"> {{ book.book_name }}</h4>
+                        <div class="col-lg-4 mb-6 mb-xl-0">
+                            <div class="book-details">
+                                <div class="book-info">
+                                    <div class="image-frame">
+                                        <img src="{{ book.pic_link }}"
+                                             width="250" height="auto">
+                                        <!--                                         alt="{{ book.title }}" class="book-cover">-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="demo-inline-spacing mt-3">
+                                <div class="list-group list-group-horizontal-md text-md-center">
+                                    <a class="list-group-item list-group-item-action active"
+                                       id="home-list-item"
+                                       data-bs-toggle="list" href="#horizontal-home"> Описание </a>
+                                    <a class="list-group-item list-group-item-action" id="profile-list-item"
+                                       data-bs-toggle="list" href="#horizontal-profile"> Информация </a>
+                                    <a class="list-group-item list-group-item-action"
+                                       id="messages-list-item"
+                                       data-bs-toggle="list" href="#horizontal-messages"> Об авторе </a>
+                                    <a class="list-group-item list-group-item-action" id="leeds-list-item"
+                                       data-bs-toggle="list" href="#horizontal-settings"> Купить </a>
+                                </div>
+                                <div class="tab-content px-0 mt-0" style="text-align: left">
+                                    <div class="tab-pane fade show active tex" id="horizontal-home">
+                                        {{ book.description }}
+                                    </div>
+                                    <div class="tab-pane fade" id="horizontal-profile">
+                                        <p><strong>Авторы:</strong>
+                                            {% for author_id, author_name in book.authors %}
+                                                <a href="{% url 'view_book' author_id %}">{{ author_name }}</a>{% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+                                        </p>
+
+
+                                        <p><strong>Жанры:</strong>
+                                            {% for genre_id, genre_name in book.genres %}
+                                                <a href="{% url 'view_book' genre_id %}">{{ genre_name }}</a>{% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+                                        </p>
+                                        <p><strong>Оценка:</strong> {{ book.score }} </p>
+                                    </div>
+                                    <div class="tab-pane fade" id="horizontal-messages">
+                                        <p> Автор красава </p>
+                                    </div>
+                                    <div class="tab-pane fade" id="horizontal-settings">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                            <div class="col-md-12">
+                                <div class="book-details">
+                                    <div class="book-info">
+                                        <h4 class="fw-bold py-3 mb-4">Отзывы:</h4>
+                                        <div class="col-md mb-4 mb-md-0">
+                                            <div class="accordion mt-3" id="accordionExample">
+                                                <div class="card accordion-item">
+                                                    <h2 class="accordion-header" id="headingThree">
+                                                        <div class="input-group input-group-merge speech-to-text">
+                                                            <textarea class="form-control"
+                                                                      placeholder="Напишите свой отзыв" rows="2"
+                                                                      style="height: 75px;"></textarea>
+                                                            <span class="input-group-text">
+                                                              <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                                                            </span>
+                                                        </div>
+                                                    </h2>
+                                                </div>
+                                                <div>
+                                                    <button type="button" class="accordion-button collapsed"
+                                                            data-bs-toggle="collapse" data-bs-target="#accordionThree"
+                                                            aria-expanded="false" aria-controls="accordionThree">
+                                                        <strong>Сергей</strong>
+                                                        <span style="margin-left: 5px; color: royalblue;">5.6</span>
+                                                        <span class="star-icon"
+                                                              style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
+                                                        <div id="accordionThree" class="accordion-collapse collapse"
+                                                         aria-labelledby="headingThree"
+                                                         data-bs-parent="#accordionExample" style="">
+                                                            <div class="accordion-body">
+                                                                "Книга, которую нельзя оставить без внимания! С самого
+                                                                начала она
+                                                                захватывает своей интригой и держит в напряжении до
+                                                                последней страницы.
+                                                                Отлично проработанные персонажи, живые описания и
+                                                                неожиданные повороты
+                                                                событий делают эту книгу настоящим психологическим
+                                                                триллером. Я был
+                                                                настолько заинтригован, что не мог остановиться, пока не
+                                                                дочитал до конца.
+                                                                Браво автору!"
+                                                            </div>
+                                                        </div>
+
+                                                    </button>
+                                                </div>
+
+
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+    </div>
+
+
+{% include 'home/blocks/footer.html' %}

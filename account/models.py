@@ -10,6 +10,7 @@ class Users(models.Model):
     about = models.TextField("О себе", max_length=10000, null=True)
     email = models.EmailField("Почта", max_length=10000, null=True)
     profile_picture = models.ImageField(upload_to='avatars', null=True, blank=True, default="avatars/avatar.jpg")
+    is_onboarding_passed = models.IntegerField("Онбординг пройден?", default=0)
 
     def __str__(self):
         return self.name

@@ -1,35 +1,47 @@
 {% load static %}
 
 {% include 'home/blocks/header.html' %}
-
 {% include 'home/blocks/menu.html' %}
-
 {% include 'home/blocks/navbar.html' %}
 
-    <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
+<!-- Content wrapper -->
+<div class="content-wrapper">
+    <!-- Content -->
 
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"></span> Подборка от README:</h4>
-                
-              <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-                {%  for book in books %}
-                  <a href="{{ book.book_link }}" class="text-black">
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4">Подборка от README:</h4>
+
+        <div class="row row-cols-1 row-cols-md-5">
+            {% for book in books %}
+                <a href="{% url 'view_book' book.id %}" class="text-black">
                     <div class="col">
-                      <div class="card h-50">
-                        <img class="card-img-top" src="{{ book.pic_link }}" alt="Card image cap" />
-                        <div class="card-body">
-                          <h5 class="card-title">{{ book.book_name }}</h5>
-                          <p class="card-text">
-                            {{ book.description }}
-                          </p>
+                        <div class="card h-100">
+
+                            <img class="card-img-top" src="{{ book.pic_link }}" alt="Card image cap" width="auto"
+                                 height="250"/>
+                            <div class="card-body">
+
+                                <p class="card-text">
+                                    {% for author_id, author_name in book.authors %}
+                                       {{ author_name }} {% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </p>
+
+                                {% if 'user_id' in request.session %}
+                                    {% if book.status is not None %}
+                                        <span class="badge bg-label-{{ book.status_button }}">{{ book.status }}</span>
+                                    {% endif %}
+                                {% endif %}
+                                <span class="star-icon"  style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
+                                <span style="margin-left: 5px; color: royalblue;">{{ book.score }}</span>
+                            </div>
                         </div>
-                      </div>
+
                     </div>
-                  </a>
-                {% endfor %}
-              </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
 
 
-        {% include 'home/blocks/footer.html' %}
+    {% include 'home/blocks/footer.html' %}

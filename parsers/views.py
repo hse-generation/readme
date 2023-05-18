@@ -37,7 +37,6 @@ def add_genres_from_file(request):
     return render(request, 'parsers/index.html', data)
 
 
-
 def add_authors_from_file(request):
     file = staticfiles_storage.path('parsers/chitai_gorod.csv')
     df = pd.read_csv(file)
@@ -54,33 +53,38 @@ def add_authors_from_file(request):
     data['info'] = 1
     return render(request, 'parsers/index.html', data)
 
+
 def add_books_from_file(request):
-    file = staticfiles_storage.path('parsers/chitai_gorod.csv')
+    file = staticfiles_storage.path('parsers/chitai_gorod2.csv')
     df = pd.read_csv(file)
     df.columns = ['book_link', 'book_name', 'author_name', 'genres', 'score', 'pages_count', 'description', 'pic_link']
     data = {}
     for index, row in df.iterrows():
         if not Books.objects.filter(book_name=row['book_name']).exists():
             books_obj = Books(book_link=row['book_link'],
-                           score=row['score'],
-                           pages_count=row['pages_count'],
-                           description=row['description'],
-                           pic_link=row['pic_link'],
-                           book_name=row['book_name'],
-                        )
+                              score=row['score'],
+                              pages_count=row['pages_count'],
+                              description=row['description'],
+                              pic_link=row['pic_link'],
+                              book_name=row['book_name'],
+                              )
             books_obj.save()
             authors = row['author_name'].split(', ')
             for author in authors:
                 author_name = author.strip()
-                author_id = Authors.objects.filter(author_name=author_name).values_list('id', flat=True).first()
-                books_genres_obj = Books_authors(author_id=author_id, books_id=books_obj.id)
-                books_genres_obj.save()
+                author_instance = Authors.objects.filter(author_name=author_name).first()
 
+                if author_instance:
+                    books_authors_obj = Books_authors(author_id_id=author_instance.id, books_id_id=books_obj.id)
+                    books_authors_obj.save()
+
+            genres = row['genres'].split('.')
+            for genre in genres:
+                genre_name = genre.strip()
+                genre_instance = Genres.objects.filter(genre_name=genre_name).first()
+                if genre_instance:
+                    books_genres_obj = Books_genres(genre_id_id=genre_instance.id, books_id_id=books_obj.id)
+                    books_genres_obj.save()
 
     data['info'] = 1
     return render(request, 'parsers/index.html', data)
-
-
-
-
-

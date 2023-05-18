@@ -118,26 +118,26 @@
                 <div data-i18n="Analytics">Аналитика</div>
             </a>
         </li>
-        {% if 'user_id' not in request.session %}
-            <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class='menu-icon bx bxs-lock-open-alt'></i>
-                    <div>Авторизация</div>
-                </a>
-                <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="{% url 'login' %}" class="menu-link" target="">
-                            <div data-i18n="Basic">Вход</div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="{% url 'register' %}" class="menu-link">
-                            <div data-i18n="Basic">Регистрация</div>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        {% endif %}
+{#        {% if 'user_id' not in request.session %}#}
+{#            <li class="menu-item">#}
+{#                <a href="javascript:void(0);" class="menu-link menu-toggle">#}
+{#                    <i class='menu-icon bx bxs-lock-open-alt'></i>#}
+{#                    <div>Авторизация</div>#}
+{#                </a>#}
+{#                <ul class="menu-sub">#}
+{#                    <li class="menu-item">#}
+{#                        <a href="{% url 'login' %}" class="menu-link" target="">#}
+{#                            <div data-i18n="Basic">Вход</div>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                    <li class="menu-item">#}
+{#                        <a href="{% url 'register' %}" class="menu-link">#}
+{#                            <div data-i18n="Basic">Регистрация</div>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </li>#}
+{#        {% endif %}#}
 
 
     </ul>
