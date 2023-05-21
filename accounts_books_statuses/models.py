@@ -21,6 +21,12 @@ class AccountsBooksStatuses(models.Model):
         'COMPLETED': ACCOUNTS_BOOKS_STATUSES[COMPLETED],
     }
 
+    ACCOUNTS_BOOKS_STATUSES_TEXT_TO_NUMBER = {
+        'TO_READ': TO_READ,
+        'READING': READING,
+        'COMPLETED': COMPLETED,
+    }
+
     STATUSES_BUTTON = {
         READING: 'primary',
         TO_READ: 'info',
@@ -35,6 +41,23 @@ class AccountsBooksStatuses(models.Model):
 
     def __str__(self):
         return str(self.book)
+
+    @classmethod
+    def save_or_update_status(cls, account_id, book_id, status_number):
+        accountBookStatus = cls.objects.filter(account_id=account_id, book_id=book_id).first()
+
+        # Add or update the status if it exists
+        if accountBookStatus:
+            accountBookStatus.status = status_number
+            accountBookStatus.save()
+        else:
+            newAccountBookStatus = cls(status=status_number, account_id=account_id, book_id=book_id)
+            newAccountBookStatus.save()
+
+    @classmethod
+    def get_books_by_status(cls, account_id, status_id):
+        return Books.objects.filter(accountsbooksstatuses__account_id=account_id,
+                                    accountsbooksstatuses__status=status_id)
 
     class Meta:
         verbose_name = "Статус книги для пользователя"

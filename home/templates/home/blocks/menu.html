@@ -24,70 +24,13 @@
             <span class="menu-header-text">Страницы</span>
         </li>
 
-        <li class="menu-item  open">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <li class="menu-item ">
+            <a href="{% url 'home' %}" class="menu-link">
                 <i class='menu-icon bx bxs-food-menu'></i>
-                <div data-i18n="Basic">Подборки</div>
+                <div data-i18n="Sections">Подборки</div>
             </a>
-            <ul class="menu-sub">
-                <li class="menu-item ">
-                    <a href="{% url 'home' %}" class="menu-link">
-                        <div data-i18n="Basic">От Readme</div>
-                    </a>
-                </li>
-                <li class="menu-item ">
-                    <a href="{% url 'home' %}" class="menu-link">
-                        <div data-i18n="Basic">Для Вас</div>
-                    </a>
-                </li>
-                <li class="menu-item ">
-                    <a href="{% url 'home' %}" class="menu-link">
-                        <div data-i18n="Basic">От читательсокго клуба ВШЭ</div>
-                    </a>
-                </li>
-{#                <li class="menu-item ">#}
-{#                    <a href="{% url 'genres' %}" class="menu-link">#}
-{#                        <div data-i18n="Basic">Жанры</div>#}
-{#                    </a>#}
-{#                </li>#}
-{#                <li class="menu-item ">#}
-{#                    <a href="{% url 'authors' %}" class="menu-link">#}
-{#                        <div data-i18n="Basic">Авторы</div>#}
-{#                    </a>#}
-{#                </li>#}
-            </ul>
         </li>
 
-        {#        <li class="menu-item active open">#}
-        {#            <a href="javascript:void(0);" class="menu-link menu-toggle">#}
-        {#                <i class="menu-icon tf-icons bx bx-collection"></i>#}
-        {#                <div data-i18n="Basic">Книги</div>#}
-        {#            </a>#}
-        {#            <ul class="menu-sub">#}
-        {#                <li class="menu-item active">#}
-        {#                    <a href="{% url 'home' %}" class="menu-link">#}
-        {#                        <div data-i18n="Basic"> Подборки</div>#}
-        {#                    </a>#}
-        {#                </li>#}
-{#                        <li class="menu-item">#}
-{#                            <a href="{% url 'genres' %}" class="menu-link">#}
-{#                                <div data-i18n="Basic">Жанры</div>#}
-{#                            </a>#}
-{#                        </li>#}
-        {#                <li class="menu-item">#}
-        {#                    <a href="{% url 'authors' %}" class="menu-link">#}
-        {#                        <div data-i18n="Basic">Авторы</div>#}
-        {#                    </a>#}
-        {#                </li>#}
-        {#            </ul>#}
-        {#        </li>#}
-
-        {#        <li class="menu-item open">#}
-        {#            <a href="{% url 'home' %}" class="menu-link">#}
-        {#                <i class='menu-icon bx bxs-book-heart'></i>#}
-        {#                <div data-i18n="Analytics">Моя полка</div>#}
-        {#            </a>#}
-        {#        </li>#}
         <li class="menu-item  open">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon bx bxs-food-menu'></i>
@@ -95,26 +38,26 @@
             </a>
             <ul class="menu-sub">
                 <li class="menu-item ">
-                    <a href="{% url 'home' %}" class="menu-link">
-                        <div data-i18n="Basic">Читаю</div>
-                    </a>
-                </li>
-                <li class="menu-item ">
-                    <a href="{% url 'home' %}" class="menu-link">
+                    <a href="{% url 'shelf' 1 %}" class="menu-link">
                         <div data-i18n="Basic">Буду читать</div>
                     </a>
                 </li>
                 <li class="menu-item ">
-                    <a href="{% url 'home' %}" class="menu-link">
+                    <a href="{% url 'shelf' 2 %}" class="menu-link">
+                        <div data-i18n="Basic">Читаю</div>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a href="{% url 'shelf' 3 %}" class="menu-link">
                         <div data-i18n="Basic">Завершенные</div>
                     </a>
                 </li>
 
             </ul>
         </li>
-            <li class="menu-item ">
+        <li class="menu-item ">
             <a href="{% url 'home' %}" class="menu-link">
-                <i class='menu-icon bx bxs-id-card'></i>
+                <i class='menu-icon bx bxs-bar-chart-alt-2'></i>
                 <div data-i18n="Analytics">Аналитика</div>
             </a>
         </li>
