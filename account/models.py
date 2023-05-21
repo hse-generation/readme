@@ -6,6 +6,7 @@ class Users(models.Model):
     last_name = models.CharField("Фамилия", max_length=10000, null=True)
     birthdate = models.IntegerField("Год рождения", null=True)
     status = models.IntegerField("Статус активности", null=True, default=1)
+    pages_per_day = models.IntegerField("Количество страниц в день", null=True, default=10)
     password = models.CharField("Пароль", max_length=10000, null=True)
     about = models.TextField("О себе", max_length=10000, null=True)
     email = models.EmailField("Почта", max_length=10000, null=True)

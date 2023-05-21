@@ -1,7 +1,13 @@
 from django.shortcuts import render, redirect
 from .forms import AccountForm
-from .models import Users  # импортируем нашу модель Users, по сути нашу табличку
+from .models import Users
 from django.http import HttpResponse, HttpResponseRedirect
+from accounts_books_statuses.models import AccountsBooksStatuses
+from books_authors.models import Books_authors
+from account.models import Users
+from read_books.models import ReadBooks
+from books.models import Books
+from math import ceil
 
 
 def index(request):
@@ -30,8 +36,8 @@ def index(request):
             profile_picture = Users.objects.latest('id').profile_picture
             Users.objects.latest('id').delete()
             Users.objects.filter(id=request.session['user_id']).update(profile_picture=profile_picture)
-            request.session['avatar'] = Users.objects.filter(id=request.session['user_id']).values()[0]['profile_picture']
-
+            request.session['avatar'] = Users.objects.filter(id=request.session['user_id']).values()[0][
+                'profile_picture']
 
         return redirect("account")
 
@@ -41,6 +47,38 @@ def index(request):
     data['form'] = form
     data['profile_picture'] = user[0]['profile_picture']
     return render(request, 'account/index.html', data)
+
+
+def shelf(request, status_id):
+    data = {}
+
+    data['books'] = AccountsBooksStatuses.get_books_by_status(request.session['user_id'], status_id)
+
+    if 'status-edit' in request.POST:
+        status_number, book_id = request.POST['status-edit'].split(',')
+        AccountsBooksStatuses.save_or_update_status(request.session['user_id'], book_id, status_number)
+
+        # cохраняем книгу в прочитанных, если статус 'Завершен'
+        if status_number == AccountsBooksStatuses.ACCOUNTS_BOOKS_STATUSES_TEXT_TO_NUMBER['COMPLETED']:
+            account = Users.objects.filter(id=request.session['user_id']).first()
+            book = Books.objects.filter(id=book_id).first()
+            days = ceil(book.pages_count / account.pages_per_day)
+            ReadBooks.create_new_read_book(request.session['user_id'], book_id, days)
+
+    for book in data['books']:
+        book_authors = Books_authors.objects.filter(books_id_id=book.id)
+        authors = [(author.author_id.id, author.author_id.author_name) for author in book_authors]
+        book.authors = authors
+
+        status = AccountsBooksStatuses.objects.filter(book_id=book.id, account=request.session['user_id']).first()
+        if status:
+            book.status_number = status.status
+            book.status = AccountsBooksStatuses.ACCOUNTS_BOOKS_STATUSES.get(status.status)
+            book.status_button = AccountsBooksStatuses.STATUSES_BUTTON.get(status.status)
+
+    data['accountsBooksStatuses'] = AccountsBooksStatuses.ACCOUNTS_BOOKS_STATUSES
+    data['accountsBooksStatusesText'] = AccountsBooksStatuses.ACCOUNTS_BOOKS_STATUSES_TEXT
+    return render(request, 'account/shelf.html', data)
 
 
 def logout(request):

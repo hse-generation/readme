@@ -4,8 +4,6 @@ from genres.models import Genres
 from authors.models import Authors
 
 
-# Create your models here.
-
 class Books_authors(models.Model):
     books_id = models.ForeignKey(Books, on_delete=models.CASCADE, related_name='book_authors')
     author_id = models.ForeignKey(Authors, on_delete=models.CASCADE, related_name='author_books')

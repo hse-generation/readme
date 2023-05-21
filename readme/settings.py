@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'sections',
+    'sections_books',
+    'read_books',
     'reviews',
     'accounts_books_statuses',
     'favorite_genres',
