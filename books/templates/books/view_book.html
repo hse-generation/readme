@@ -78,54 +78,131 @@
                                     <div class="book-info">
                                         <h4 class="fw-bold py-3 mb-4">Отзывы:</h4>
                                         <div class="col-md mb-4 mb-md-0">
-                                            <div class="accordion mt-3" id="accordionExample">
-                                                <div class="card accordion-item">
-                                                    <h2 class="accordion-header" id="headingThree">
-                                                        <div class="input-group input-group-merge speech-to-text">
-                                                            <textarea class="form-control"
-                                                                      placeholder="Напишите свой отзыв" rows="2"
-                                                                      style="height: 75px;"></textarea>
-                                                            <span class="input-group-text">
-                                                              <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
-                                                            </span>
-                                                        </div>
-                                                    </h2>
-                                                </div>
-                                                <div>
-                                                    <button type="button" class="accordion-button collapsed"
-                                                            data-bs-toggle="collapse" data-bs-target="#accordionThree"
-                                                            aria-expanded="false" aria-controls="accordionThree">
-                                                        <strong>Сергей</strong>
-                                                        <span style="margin-left: 5px; color: royalblue;">5.6</span>
-                                                        <span class="star-icon"
-                                                              style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
-                                                        <div id="accordionThree" class="accordion-collapse collapse"
-                                                         aria-labelledby="headingThree"
-                                                         data-bs-parent="#accordionExample" style="">
-                                                            <div class="accordion-body">
-                                                                "Книга, которую нельзя оставить без внимания! С самого
-                                                                начала она
-                                                                захватывает своей интригой и держит в напряжении до
-                                                                последней страницы.
-                                                                Отлично проработанные персонажи, живые описания и
-                                                                неожиданные повороты
-                                                                событий делают эту книгу настоящим психологическим
-                                                                триллером. Я был
-                                                                настолько заинтригован, что не мог остановиться, пока не
-                                                                дочитал до конца.
-                                                                Браво автору!"
+
+                                            <form method="post">
+                                                {% csrf_token %}
+                                                <div class="accordion mt-3" id="accordionExample">
+                                                    {% if book.canReview %}
+                                                    <div class="card accordion-item">
+                                                        <h2 class="accordion-header" id="headingThree">
+                                                            <div class="input-group input-group-merge speech-to-text">
+                                                                <textarea class="form-control"
+                                                                          placeholder="Напишите свой отзыв" rows="2"
+                                                                          style="height: 75px;" name="text"></textarea>
+                                                                <span class="input-group-text">
+                                                                  <i class="bx bx-microphone cursor-pointer text-to-speech-toggle"></i>
+                                                                </span>
                                                             </div>
+                                                        </h2>
+                                                    </div>
+
+                                                    <br>
+                                                    <div style="font-size: 20px">
+
+
+                                                        <div class="col-md-4">
+                                                          <div class="input-group">
+                                                          <span class="input-group-text">Время прочтения (в днях)</span>
+                                                          <input type="number"  name='days' class="form-control">
+                                                        </div>
                                                         </div>
 
-                                                    </button>
+                                                        <br>
+
+
+                                                        <div class="rating-area">
+                                                            <strong>Оценка:</strong>
+                                                            <input type="radio" id="star-5" name="rating" value="5">
+                                                            <label for="star-5" title="Оценка «5»"></label>
+                                                            <input type="radio" id="star-4" name="rating" value="4">
+                                                            <label for="star-4" title="Оценка «4»"></label>
+                                                            <input type="radio" id="star-3" name="rating" value="3">
+                                                            <label for="star-3" title="Оценка «3»"></label>
+                                                            <input type="radio" id="star-2" name="rating" value="2">
+                                                            <label for="star-2" title="Оценка «2»"></label>
+                                                            <input type="radio" id="star-1" name="rating" value="1">
+                                                            <label for="star-1" title="Оценка «1»"></label>
+                                                        </div>
+
+                                                        <style>
+                                                            .rating-area {
+                                                                overflow: hidden;
+                                                                width: 300px;
+                                                                margin: 0 0;
+                                                            }
+                                                            .rating-area:not(:checked) > input {
+                                                                display: none;
+                                                            }
+                                                            .rating-area:not(:checked) > label {
+                                                                float: right;
+                                                                width: 42px;
+                                                                padding: 0;
+                                                                cursor: pointer;
+                                                                font-size: 32px;
+                                                                line-height: 32px;
+                                                                color: lightgrey;
+                                                                text-shadow: 1px 1px #bbb;
+                                                            }
+                                                            .rating-area:not(:checked) > label:before {
+                                                                content: '★';
+                                                            }
+                                                            .rating-area > input:checked ~ label {
+                                                                color: gold;
+                                                                text-shadow: 1px 1px #c60;
+                                                            }
+                                                            .rating-area:not(:checked) > label:hover,
+                                                            .rating-area:not(:checked) > label:hover ~ label {
+                                                                color: gold;
+                                                            }
+                                                            .rating-area > input:checked + label:hover,
+                                                            .rating-area > input:checked + label:hover ~ label,
+                                                            .rating-area > input:checked ~ label:hover,
+                                                            .rating-area > input:checked ~ label:hover ~ label,
+                                                            .rating-area > label:hover ~ input:checked ~ label {
+                                                                color: gold;
+                                                                text-shadow: 1px 1px goldenrod;
+                                                            }
+                                                            .rate-area > label:active {
+                                                                position: relative;
+                                                            }
+                                                        </style>
+
+                                                    </div>
+                                                    <br>
+
+                                                    <div class="d-grid gap-2 col-lg-2">
+
+                                                    <button class="btn btn-primary btn-lg" name="save-review">Сохранить отзыв</button>
+
+                                                    </div>
+                                                    {% endif %}
+
+                                                    <br>
+                                                    <br>
+
+                                                    {% for review in book.reviews %}
+                                                    <div>
+                                                        <button type="button" class="accordion-button collapsed"
+                                                                data-bs-toggle="collapse" data-bs-target="#accordion{{ review.id }}"
+                                                                aria-expanded="false" aria-controls="accordion{{ review.id }}">
+                                                            <strong>{{ review.account.name }}</strong>
+                                                            <span style="margin-left: 5px; color: royalblue;">{{ review.score }}</span>
+                                                            <span class="star-icon"
+                                                                  style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
+                                                            <div id="accordion{{ review.id }}" class="accordion-collapse collapse"
+                                                             aria-labelledby="heading{{ review.id }}"
+                                                             data-bs-parent="#accordionExample" style="">
+                                                                <div class="accordion-body">
+                                                                    {{ review.text }}
+                                                                </div>
+                                                            </div>
+
+                                                        </button>
+                                                    </div>
+                                                    {% endfor %}
+
                                                 </div>
-
-
-
-
-
-
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

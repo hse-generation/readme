@@ -7,6 +7,8 @@ class Reviews(models.Model):
     account = models.ForeignKey(Users, on_delete=models.CASCADE)
     book = models.ForeignKey(Books, on_delete=models.CASCADE)
     score = models.IntegerField('Оценка', null=True)
+    text = models.TextField("Отзыв", max_length=10000, null=True)
+    days = models.IntegerField('Время прочтения в днях', null=True)
 
     def __str__(self):
         return str(self.account)

@@ -5,14 +5,20 @@ from account.models import Users
 
 
 class AccountsBooksStatuses(models.Model):
-    READING = 1
-    TO_READ = 2
+    TO_READ = 1
+    READING = 2
     COMPLETED = 3
 
     ACCOUNTS_BOOKS_STATUSES = {
-        READING: 'Читаю',
         TO_READ: 'Буду читать',
+        READING: 'Читаю',
         COMPLETED: 'Завершенные'
+    }
+
+    ACCOUNTS_BOOKS_STATUSES_TEXT = {
+        'TO_READ': ACCOUNTS_BOOKS_STATUSES[TO_READ],
+        'READING': ACCOUNTS_BOOKS_STATUSES[READING],
+        'COMPLETED': ACCOUNTS_BOOKS_STATUSES[COMPLETED],
     }
 
     STATUSES_BUTTON = {
