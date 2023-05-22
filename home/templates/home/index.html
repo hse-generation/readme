@@ -24,7 +24,8 @@
                     {% csrf_token %}
                     {% for book in books %}
                          <div class="slider-item">
-                            <div class="card h-100">
+
+                            <div class="card h-100" style="">
 
                                 <a href="{% url 'view_book' book.id %}" class="text-black">
 
@@ -36,7 +37,16 @@
 
                                     <div class="card-body">
 
-                                        <h5 class="card-title">{{ book.book_name }} </h5>
+
+                                         <h5 class="card-title">
+                                            {{ book.book_name|slice:":20" }}{% if book.book_name|length > 20 %}...{% endif %}
+                                        </h5>
+
+
+
+
+
+
 
                                         <a href="{% url 'view_book' book.id %}" class="text-black"></a>
 
@@ -103,9 +113,6 @@
 
 
                                     </div>
-
-
-
 
 
                             </div>
