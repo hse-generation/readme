@@ -35,8 +35,9 @@
                                          height="300"/>
 
                                     <div class="card-body">
-
-                                        <h5 class="card-title">{{ book.book_name }} </h5>
+                                        <h5 class="card-title">
+                                            {{ book.book_name|slice:":15" }}{% if book.book_name|length > 15 %}...{% endif %}
+                                        </h5>
 
                                         <a href="{% url 'view_book' book.id %}" class="text-black"></a>
 

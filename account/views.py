@@ -1,15 +1,20 @@
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import AccountForm
 from .models import Users
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from accounts_books_statuses.models import AccountsBooksStatuses
 from books_authors.models import Books_authors
 from account.models import Users
 from read_books.models import ReadBooks
 from books.models import Books
 from math import ceil
+from favorite_genres.models import FavoritesGenres
+from genres.models import Genres
 
 
+@csrf_exempt
 def index(request):
     if 'user_id' not in request.session:  # если пользователь не авторизован, отправляем на страницу входа
         return redirect('login')
@@ -19,6 +24,21 @@ def index(request):
             return redirect('logout')
 
     data = {}  # дата (данные), которая отправляется в view
+
+    if request.method == 'POST':
+        if 'genre_id' in request.POST and 'action' in request.POST:
+            genre_id = request.POST['genre_id']
+            action = request.POST['action']
+            user_id = request.session.get('user_id')
+
+            if action == 'add':
+                FavoritesGenres.objects.get_or_create(account_id_id=user_id, genre_id_id=genre_id)
+            elif action == 'remove':
+                FavoritesGenres.objects.filter(account_id_id=user_id, genre_id_id=genre_id).delete()
+
+            return JsonResponse({'status': 'success'})
+
+
     if 'deactivate-account' in request.POST:
         Users.objects.filter(id=request.session['user_id']).update(status=0)
         return redirect("account")
@@ -29,7 +49,8 @@ def index(request):
                                                                    last_name=info['last_name'],
                                                                    about=info['about'],
                                                                    birthdate=info['birthdate'],
-                                                                   email=info['email'])
+                                                                   email=info['email'],
+                                                                   pages_per_day=info['pages_per_day'])
         request.session['name'] = info['name']
         if info_pic.is_valid() and len(request.FILES) > 0:
             info_pic.save()
@@ -45,6 +66,11 @@ def index(request):
         id=request.session['user_id']).values()  # берем из accounts вссех юзеров с id равный id пользака из сессии
     form = AccountForm(data=user[0])  # указываем в data значение из базы, чтобы автоматом выставлялись в поля
     data['form'] = form
+    data['chosenGenres'] = data['chosenGenres'] = list(
+        FavoritesGenres.get_favorite_genres_by_account(request.session['user_id'])
+        .values_list('id', flat=True))
+    data['genres'] = Genres.objects.all()
+
     data['profile_picture'] = user[0]['profile_picture']
     return render(request, 'account/index.html', data)
 

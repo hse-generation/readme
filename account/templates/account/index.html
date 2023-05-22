@@ -37,7 +37,6 @@
                     </div>
                     <hr class="my-0"/>
                     <div class="card-body">
-
                             {% csrf_token %}
                             <div class="row">
                                 <div class="mb-3 col-md-6">
@@ -60,6 +59,14 @@
                                     <label for="about_user" class="form-label">Расскажите о себе</label>
                                     {{ form.about }}
                                 </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="about_user" class="form-label">Сколько читаете</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Количество страниц в день</span>
+                                        {{ form.pages_per_day }}
+                                    </div>
+                                </div>
+
 
                             </div>
                             <div class="mt-2">
@@ -71,6 +78,45 @@
                     </div>
                     <!-- /Account -->
                 </div>
+                <style>
+                    .btn-group {
+                        margin: 3px 3px 2px; /* Пример вертикального отступа 10 пикселей, можно изменить по вашему выбору */
+                    }
+                </style>
+                <div class="col-md mb-4 mb-md-0">
+                    <div class="accordion mt-3" id="accordionExample">
+                        <div class="card accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                                        data-bs-target="#accordionOne" aria-expanded="false" aria-controls="accordionOne">
+                                    <strong>Мои жанры</strong></button>
+                                </button>
+                            </h2>
+                            <form method="post">
+                            {% csrf_token %}
+                            <div id="accordionOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample"
+                                 style="overflow-y: scroll; max-height: 300px;">
+                                <div class="accordion-body">
+                                    {% for genre in genres %}
+                                        {% if genre.id in chosenGenres %}
+                                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                                <input type="checkbox" checked name="genre_{{ genre.id }}" class="btn-check" id="{{ genre.id }}" value="{{ genre.id }}" autocomplete="off">
+                                                <label class="btn btn-outline-primary" for="{{ genre.id }}">{{ genre.genre_name }}</label>
+                                            </div>
+                                        {% else %}
+                                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                                <input type="checkbox" name="genre_{{ genre.id }}" class="btn-check" id="{{ genre.id }}" value="{{ genre.id }}" autocomplete="off">
+                                                <label class="btn btn-outline-primary" for="{{ genre.id }}">{{ genre.genre_name }}</label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+
+                <br/>
                 <div class="card">
                     <h5 class="card-header">Удалить акккаунт</h5>
                     <div class="card-body">
@@ -85,17 +131,6 @@
                         </div>
                         <form id="formAccountDeactivation" method="post">
                             {% csrf_token %}
-<!--                            <div class="form-check mb-3">-->
-<!--                                <input-->
-<!--                                        class="form-check-input"-->
-<!--                                        type="checkbox"-->
-<!--                                        name="accountActivation"-->
-<!--                                        id="accountActivation"-->
-<!--                                />-->
-<!--                                <label class="form-check-label" for="accountActivation"-->
-<!--                                >Я подтверждаю удаление моего аккаунта</label-->
-<!--                                >-->
-<!--                            </div>-->
                             <button type="button"  class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#modalToggle">
                                 Удалить Аккаунт
                             </button>
@@ -131,6 +166,37 @@
             </div>
         </div>
     </div>
+
     <!-- / Content -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script type="application/javascript">
+        // Add event listeners to the checkbox elements
+        $('.btn-check').on('click', function() {
+          const genreId = $(this).val();
+          const isActive = $(this).is(':checked');
+
+          // Send AJAX request to the controller
+          $.ajax({
+            url: '{% url 'account' %}',
+            type: 'POST',
+            data: {
+              csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+              genre_id: genreId,
+              action: isActive ? 'add' : 'remove'
+            },
+            success: function() {
+              // Handle success if needed
+            },
+            error: function(xhr, status, error) {
+              // Handle error if needed
+            }
+          });
+        });
+
+
+    </script>
 
     {% include 'home/blocks/footer.html' %}

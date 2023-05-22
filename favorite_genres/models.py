@@ -11,6 +11,10 @@ class FavoritesGenres(models.Model):
     def __str__(self):
         return str(self.account_id)
 
+    @classmethod
+    def get_favorite_genres_by_account(cls, account_id):
+        return Genres.objects.filter(favoritesgenres__account_id=account_id)
+
     class Meta:
         verbose_name = "Избранный жанр для пользователя"
         verbose_name_plural = "Избранные жанры для пользователя"
