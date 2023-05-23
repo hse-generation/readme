@@ -4,7 +4,6 @@ from books.models import Books
 
 
 class ReadBooks(models.Model):
-
     days = models.IntegerField("Количество дней")
     account = models.ForeignKey(Users, on_delete=models.CASCADE)
     book = models.ForeignKey(Books, on_delete=models.CASCADE)
@@ -14,9 +13,8 @@ class ReadBooks(models.Model):
 
     @classmethod
     def create_new_read_book(cls, account_id, book_id, days):
-        new_read_book = cls(account_id=account_id, book_id=book_id, days=days)
+        new_read_book = ReadBooks(account_id=account_id, book_id=book_id, days=days)
         new_read_book.save()
-
 
     class Meta:
         verbose_name = "Прочитанная книга"

@@ -124,49 +124,6 @@
                                                             <label for="star-1" title="Оценка «1»"></label>
                                                         </div>
 
-                                                        <style>
-                                                            .rating-area {
-                                                                overflow: hidden;
-                                                                width: 300px;
-                                                                margin: 0 0;
-                                                            }
-                                                            .rating-area:not(:checked) > input {
-                                                                display: none;
-                                                            }
-                                                            .rating-area:not(:checked) > label {
-                                                                float: right;
-                                                                width: 42px;
-                                                                padding: 0;
-                                                                cursor: pointer;
-                                                                font-size: 32px;
-                                                                line-height: 32px;
-                                                                color: lightgrey;
-                                                                text-shadow: 1px 1px #bbb;
-                                                            }
-                                                            .rating-area:not(:checked) > label:before {
-                                                                content: '★';
-                                                            }
-                                                            .rating-area > input:checked ~ label {
-                                                                color: gold;
-                                                                text-shadow: 1px 1px #c60;
-                                                            }
-                                                            .rating-area:not(:checked) > label:hover,
-                                                            .rating-area:not(:checked) > label:hover ~ label {
-                                                                color: gold;
-                                                            }
-                                                            .rating-area > input:checked + label:hover,
-                                                            .rating-area > input:checked + label:hover ~ label,
-                                                            .rating-area > input:checked ~ label:hover,
-                                                            .rating-area > input:checked ~ label:hover ~ label,
-                                                            .rating-area > label:hover ~ input:checked ~ label {
-                                                                color: gold;
-                                                                text-shadow: 1px 1px goldenrod;
-                                                            }
-                                                            .rate-area > label:active {
-                                                                position: relative;
-                                                            }
-                                                        </style>
-
                                                     </div>
                                                     <br>
 
@@ -175,47 +132,31 @@
                                                     <button class="btn btn-primary btn-lg" name="save-review">Сохранить отзыв</button>
 
                                                     </div>
-                                                    {% endif %}
                                                     <br>
-                                                    {% for review in book.reviews %}
-<!--                                                    <div>-->
-<!--                                                        <button type="button" class="accordion-button collapsed"-->
-<!--                                                                data-bs-toggle="collapse" data-bs-target="#accordion{{ review.id }}"-->
-<!--                                                                aria-expanded="false" aria-controls="accordion{{ review.id }}">-->
-<!--                                                            <strong>{{ review.account.name }}</strong>-->
-<!--                                                            <span style="margin-left: 5px; color: royalblue;">{{ review.score }}</span>-->
-<!--                                                            <span class="star-icon"-->
-<!--                                                                  style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>-->
-<!--                                                            <div id="accordion{{ review.id }}" class="accordion-collapse collapse"-->
-<!--                                                             aria-labelledby="heading{{ review.id }}"-->
-<!--                                                             data-bs-parent="#accordionExample" style="">-->
-<!--                                                                <div class="accordion-body">-->
-<!--                                                                    {{ review.text }}-->
-<!--                                                                </div>-->
-<!--                                                            </div>-->
+                                                    <br>
+                                                    {% endif %}
 
-<!--                                                        </button>-->
-<!--                                                    </div>-->
-                                                    <div class="col-md mb-4 mb-md-0">
-                                                        <div class="accordion mt-3" id="accordionExample">
-                                                          <div class="card accordion-item">
-                                                            <h2 class="accordion-header" id="headingTwo">
-                                                              <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="false" aria-controls="accordionTwo">
-                                                                Пользак
-                                                                  <span style="margin-left: 5px; color: royalblue;">{{ review.score }}</span>
-                                                                    <span class="star-icon" style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
-                                                              </button>
-                                                            </h2>
-                                                            <div id="accordionTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
-                                                              <div class="accordion-body">
-                                                                Dessert ice cream donut oat cake jelly-o pie sugar plum cheesecake. Bear claw dragée oat cake dragée ice
-                                                                cream halvah tootsie roll. Danish cake oat cake pie macaroon tart donut gummies. Jelly beans candy canes
-                                                                carrot cake. Fruitcake chocolate chupa chups.
-                                                              </div>
+
+
+                                                    {% for review in book.reviews %}
+                                                    <div>
+                                                        <button type="button" class="accordion-button collapsed"
+                                                                data-bs-toggle="collapse" data-bs-target="#accordion{{ review.id }}"
+                                                                aria-expanded="false" aria-controls="accordion{{ review.id }}">
+                                                            <strong>{{ review.account.name }}</strong>
+                                                            <span style="margin-left: 5px; color: royalblue;">{{ review.score }}</span>
+                                                            <span class="star-icon"
+                                                                  style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
+                                                            <div id="accordion{{ review.id }}" class="accordion-collapse collapse"
+                                                             aria-labelledby="heading{{ review.id }}"
+                                                             data-bs-parent="#accordionExample" style="">
+                                                                <div class="accordion-body">
+                                                                    {{ review.text }}
+                                                                </div>
                                                             </div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
+
+                                                        </button>
+                                                    </div>
                                                     {% endfor %}
 
                                                 </div>

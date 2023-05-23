@@ -2,7 +2,6 @@ from django.db import models
 from books.models import Books
 from genres.models import Genres
 
-# Create your models here.
 
 class Books_genres(models.Model):
     books_id = models.ForeignKey(Books, on_delete=models.CASCADE)

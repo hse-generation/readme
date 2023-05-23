@@ -13,6 +13,15 @@ class Reviews(models.Model):
     def __str__(self):
         return str(self.account)
 
+    @classmethod
+    def create_new_review(cls, account_id, book_id, text, score, days):
+        new_review = Reviews(account_id=account_id,
+                             book_id=book_id,
+                             text=text,
+                             score=score,
+                             days=days)
+        new_review.save()
+
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'

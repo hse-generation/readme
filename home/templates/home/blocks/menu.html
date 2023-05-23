@@ -30,7 +30,7 @@
                 <div data-i18n="Sections">Подборки</div>
             </a>
         </li>
-
+        {% if 'user_id' in request.session %}
         <li class="menu-item  open">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon bx bxs-food-menu'></i>
@@ -55,12 +55,14 @@
 
             </ul>
         </li>
+
         <li class="menu-item ">
             <a href="{% url 'home' %}" class="menu-link">
                 <i class='menu-icon bx bxs-bar-chart-alt-2'></i>
                 <div data-i18n="Analytics">Аналитика</div>
             </a>
         </li>
+        {% endif %}
         {% if 'user_id' not in request.session %}
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
