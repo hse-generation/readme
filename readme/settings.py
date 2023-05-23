@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'test_search',
+    'books_sources',
+    'sources',
     'sections',
     'sections_books',
     'read_books',

@@ -10,6 +10,7 @@ from books_authors.models import Books_authors
 from books_genres.models import Books_genres
 from read_books.models import ReadBooks
 from reviews.models import Reviews
+from books_sources.models import BooksSources
 from math import ceil
 
 
@@ -53,6 +54,11 @@ def view_book(request, book_id):
     data['book']['genres'] = genres
 
     data['book']['reviews'] = Reviews.objects.filter(book_id=data['book']['id'])
+
+    data['book']['sources'] = BooksSources.objects.filter(book_id=data['book']['id'])
+
+    data['book']['pic_link'] = data['book']['sources'][0]['link']
+
 
     if 'user_id' in request.session and not data['book']['reviews'].filter(
             account_id=request.session['user_id']).exists():

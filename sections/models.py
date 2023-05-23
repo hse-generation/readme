@@ -26,7 +26,7 @@ class Sections(models.Model):
 
         # If the user does not have any read books, return all books sorted by rating.
         if not read_books:
-            return Books.objects.all().order_by('-score')[:300]
+            return Books.objects.all()[:300]
         else:
             # Get the user's favorite genres.
             favorite_genres = FavoritesGenres.get_favorite_genres_by_account(user_id)
@@ -77,7 +77,7 @@ class Sections(models.Model):
             recommended_books = books.filter(id__in=nearest_book_ids)[:300]
 
             # Sort the recommended books by score.
-            recommended_books = sorted(recommended_books, key=lambda book: book.score, reverse=True)
+            # recommended_books = sorted(recommended_books, key=lambda book: book.score, reverse=True)
 
             return recommended_books
 

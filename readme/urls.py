@@ -28,6 +28,7 @@ urlpatterns = [
     path('account/', include('account.urls')),
     path('parsers/', include('parsers.urls')),
     path('books/', include('books.urls')),
+    path('test-search/', include('test_search.urls')),
     path('', include('home.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
