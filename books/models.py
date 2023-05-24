@@ -12,6 +12,24 @@ class Books(models.Model):
     def __str__(self):
         return self.book_name
 
+    @classmethod
+    def search(cls, query):
+        books = Books.objects.filter(book_name__icontains=query).values('book_name')
+        authors = Authors.objects.filter(author_name__icontains=query).values('author_name')
+        author_books = Books.objects.filter(book_authors__author_id__author_name__icontains=query).values('book_name')
+        genres = Genres.objects.filter(genre_name__icontains=query).values('genre_name')
+
+        # Фильтруем книги по жанру
+        genre_books = Books.objects.filter(books_genres__genre_id__genre_name__icontains=query).values('book_name')
+
+        # Если найдены книги по жанру, добавляем их в список books
+        if genre_books.exists():
+            books = books.union(genre_books)
+
+        ans = list(books) + list(author_books) + list(genre_books)
+        return ans
+
+
     class Meta:
         verbose_name = "Книга"
         verbose_name_plural = "Книги"

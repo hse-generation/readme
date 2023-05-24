@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результаты поиска</title>
+</head>
+<body>
+<h1>Результаты поиска</h1>
+{% if ans %}
+    <h2>Результаты:</h2>
+    <ul>
+        {% for item in ans %}
+            {% if item.book_name %}
+                <li>Название книги: {{ item.book_name }}</li>
+            {% endif %}
+            {% if item.author_name %}
+                <li>Имя автора: {{ item.author_name }}</li>
+            {% endif %}
+            {% if item.genre_name %}
+                <li>Название жанра: {{ item.genre_name }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Ничего не найдено.</p>
+{% endif %}
+</body>
+</html>
