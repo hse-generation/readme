@@ -3,6 +3,7 @@ from books.models import Books
 from accounts_books_statuses.models import AccountsBooksStatuses
 from books_authors.models import Books_authors
 from account.models import Users
+from books_sources.models import BooksSources
 from genres.models import Genres
 from favorite_genres.models import FavoritesGenres
 from read_books.models import ReadBooks
@@ -36,6 +37,8 @@ def index(request):
             book_authors = Books_authors.objects.filter(books_id_id=book.id)
             authors = [(author.author_id.id, author.author_id.author_name) for author in book_authors]
             book.authors = authors
+            sources = BooksSources.objects.filter(book_id=book.id)
+            book.pic_link = sources.first().pic_link
 
             status = AccountsBooksStatuses.objects.filter(book=book, account=request.session['user_id']).first()
             if status:
@@ -53,6 +56,8 @@ def index(request):
             book_authors = Books_authors.objects.filter(books_id_id=book.id)
             authors = [(author.author_id.id, author.author_id.author_name) for author in book_authors]
             book.authors = authors
+            sources = BooksSources.objects.filter(book_id=book.id)
+            book.pic_link = sources.first().pic_link
 
         if 'user_id' in request.session:  # если пользователь авторизован
             for book in books:

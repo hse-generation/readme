@@ -20,7 +20,6 @@
                                     <div class="image-frame">
                                         <img src="{{ book.pic_link }}"
                                              width="250" height="auto">
-                                        <!--                                         alt="{{ book.title }}" class="book-cover">-->
                                     </div>
                                 </div>
                             </div>
@@ -33,9 +32,9 @@
                                        data-bs-toggle="list" href="#horizontal-home"> Описание </a>
                                     <a class="list-group-item list-group-item-action" id="profile-list-item"
                                        data-bs-toggle="list" href="#horizontal-profile"> Информация </a>
-                                    <a class="list-group-item list-group-item-action"
-                                       id="messages-list-item"
-                                       data-bs-toggle="list" href="#horizontal-messages"> Об авторе </a>
+{#                                    <a class="list-group-item list-group-item-action"#}
+{#                                       id="messages-list-item"#}
+{#                                       data-bs-toggle="list" href="#horizontal-messages"> Об авторе </a>#}
                                     <a class="list-group-item list-group-item-action" id="leeds-list-item"
                                        data-bs-toggle="list" href="#horizontal-settings"> Купить </a>
                                 </div>
@@ -62,7 +61,11 @@
                                         <p> Автор красава </p>
                                     </div>
                                     <div class="tab-pane fade" id="horizontal-settings">
-
+                                        {% for source in book.sources %}
+                                            <p><strong>Источник:</strong>
+                                                <a href="{{ source.book_link }}"> {{ source.source.name }} </a>, {{ source.price }} руб.
+                                            </p>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +89,7 @@
                                                     <div class="card accordion-item">
                                                         <h2 class="accordion-header" id="headingThree">
                                                             <div class="input-group input-group-merge speech-to-text">
-                                                                <textarea class="form-control"
+                                                                <textarea class="form-control" required
                                                                           placeholder="Напишите свой отзыв" rows="2"
                                                                           style="height: 75px;" name="text"></textarea>
                                                                 <span class="input-group-text">
@@ -103,7 +106,7 @@
                                                         <div class="col-md-4">
                                                           <div class="input-group">
                                                           <span class="input-group-text">Время прочтения (в днях)</span>
-                                                          <input type="number"  name='days' class="form-control">
+                                                          <input type="number" required name='days' class="form-control">
                                                         </div>
                                                         </div>
 
@@ -112,7 +115,7 @@
 
                                                         <div class="rating-area">
                                                             <strong>Оценка:</strong>
-                                                            <input type="radio" id="star-5" name="rating" value="5">
+                                                            <input type="radio" required id="star-5" name="rating" value="5">
                                                             <label for="star-5" title="Оценка «5»"></label>
                                                             <input type="radio" id="star-4" name="rating" value="4">
                                                             <label for="star-4" title="Оценка «4»"></label>
@@ -139,24 +142,28 @@
 
 
                                                     {% for review in book.reviews %}
-                                                    <div>
-                                                        <button type="button" class="accordion-button collapsed"
-                                                                data-bs-toggle="collapse" data-bs-target="#accordion{{ review.id }}"
-                                                                aria-expanded="false" aria-controls="accordion{{ review.id }}">
-                                                            <strong>{{ review.account.name }}</strong>
-                                                            <span style="margin-left: 5px; color: royalblue;">{{ review.score }}</span>
-                                                            <span class="star-icon"
-                                                                  style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
-                                                            <div id="accordion{{ review.id }}" class="accordion-collapse collapse"
-                                                             aria-labelledby="heading{{ review.id }}"
-                                                             data-bs-parent="#accordionExample" style="">
-                                                                <div class="accordion-body">
+                                                        <div class="col-md mb-4 mb-md-0">
+                                                            <div class="accordion mt-3" id="accordionExample">
+                                                              <div class="card accordion-item">
+                                                                <h2 class="accordion-header" id="headingTwo">
+                                                                  <button type="button" class="accordion-button collapsed"
+                                                                    data-bs-toggle="collapse" data-bs-target="#accordion{{ review.id }}"
+                                                                    aria-expanded="false" aria-controls="accordion{{ review.id }}">
+                                                                    <strong>{{ review.account.name }}</strong>
+                                                                      <span style="margin-left: 5px; color: royalblue;">{{ review.score }}</span>
+                                                                        <span class="star-icon" style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
+                                                                  </button>
+                                                                </h2>
+                                                                <div id="accordion{{ review.id }}" class="accordion-collapse collapse"
+                                                                 aria-labelledby="heading{{ review.id }}"
+                                                                 data-bs-parent="#accordionExample" style="">
+                                                                  <div class="accordion-body">
                                                                     {{ review.text }}
+                                                                  </div>
                                                                 </div>
+                                                              </div>
                                                             </div>
-
-                                                        </button>
-                                                    </div>
+                                                        </div>
                                                     {% endfor %}
 
                                                 </div>

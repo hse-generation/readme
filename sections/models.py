@@ -9,8 +9,8 @@ from books_genres.models import Books_genres
 from favorite_genres.models import FavoritesGenres
 from genres.models import Genres
 from read_books.models import ReadBooks
-from reviews.models import Reviews
 from accounts_books_statuses.models import AccountsBooksStatuses
+
 
 class Sections(models.Model):
     name = models.CharField("Название подборки", max_length=10000, null=True)
@@ -39,7 +39,7 @@ class Sections(models.Model):
 
             # Filter the books to exclude the ones that the user has already read.
             filtered_books = books.exclude(id__in=read_book_ids)
-
+            filtered_books = filtered_books[:10000]
             # Create a numerical representation for book features.
             book_features = []
             book_ids = []

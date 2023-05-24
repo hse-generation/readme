@@ -57,8 +57,7 @@ def view_book(request, book_id):
 
     data['book']['sources'] = BooksSources.objects.filter(book_id=data['book']['id'])
 
-    data['book']['pic_link'] = data['book']['sources'][0]['link']
-
+    data['book']['pic_link'] = data['book']['sources'].first().pic_link
 
     if 'user_id' in request.session and not data['book']['reviews'].filter(
             account_id=request.session['user_id']).exists():
