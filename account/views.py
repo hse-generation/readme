@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
+from books_sources.models import BooksSources
 from .forms import AccountForm
 from .models import Users
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -95,6 +96,9 @@ def shelf(request, status_id):
         book_authors = Books_authors.objects.filter(books_id_id=book.id)
         authors = [(author.author_id.id, author.author_id.author_name) for author in book_authors]
         book.authors = authors
+
+        sources = BooksSources.objects.filter(book_id=book.id)
+        book.pic_link = sources.first().pic_link
 
         status = AccountsBooksStatuses.objects.filter(book_id=book.id, account=request.session['user_id']).first()
         if status:

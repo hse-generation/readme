@@ -7,3 +7,5 @@ urlpatterns = [
     path('shelf/<int:status_id>', views.shelf, name='shelf'),
     path('logout/', views.logout, name='logout'),
 ]
+
+
