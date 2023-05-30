@@ -1,7 +1,6 @@
 {% load static %}
 
 
-
 {% include 'home/blocks/header.html' %}
 
 {% include 'home/blocks/menu.html' %}
@@ -13,233 +12,224 @@
 <div class="content-wrapper">
     {% if 'user_id' in request.session %}
         <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4">Для Вас</h4>
-        <form method="post">
-            <div class="row slider-row">
-              <div class="slider-container">
-                <div class="slider">
-                    {% csrf_token %}
-                    {% for book in recommendations %}
-                         <div class="slider-item">
-                            <div class="card h-100">
+            <h4 class="fw-bold py-3 mb-4">Для Вас</h4>
+            <form method="post">
+                <div class="row slider-row">
+                    <div class="slider-container">
+                        <div class="slider">
+                            {% csrf_token %}
+                            {% for book in recommendations %}
+                                <div class="slider-item">
+                                    <div class="card h-100">
 
-                                <a href="{% url 'view_book' book.id %}" class="text-black">
+                                        <a href="{% url 'view_book' book.id %}" class="text-black">
 
-                                    <img class="card-img-top" src="{{ book.pic_link }}" alt="Card image cap" width="auto"
+                                            <img class="card-img-top" src="{{ book.pic_link }}" alt="Card image cap"
+                                                 width="auto"
 
-                                         height="300"/>
+                                                 height="300"/>
 
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            {{ book.book_name|slice:":15" }}{% if book.book_name|length > 15 %}...{% endif %}
-                                        </h5>
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    {{ book.book_name|slice:":15" }}{% if book.book_name|length > 15 %}
+                                                        ...{% endif %}
+                                                </h5>
 
-                                        <a href="{% url 'view_book' book.id %}" class="text-black"></a>
+                                                <a href="{% url 'view_book' book.id %}" class="text-black"></a>
 
-                                        <p class="card-text">
+                                                <p class="card-text">
 
-                                            {% for author_id, author_name in book.authors %}
+                                                    {% for author_id, author_name in book.authors %}
 
-                                                {{ author_name }} {% if not forloop.last %}, {% endif %}
+                                                        {{ author_name }} {% if not forloop.last %}, {% endif %}
 
-                                            {% endfor %}
+                                                    {% endfor %}
 
-                                        </p>
+                                                </p>
 
 
+                                                <div style="display: flex; align-items: center;">
+                                                    <figure class="text-start mt-2"
+                                                            style="display: flex; align-items: center; flex-grow: 1;">
+                                                        <span class="star-icon"
+                                                              style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
+                                                        <span style="margin-left: 5px; color: royalblue; margin-right: auto;">{{ book.score }}</span>
+                                                        {% if 'user_id' in request.session and book.status != accountsBooksStatusesText.COMPLETED %}
+                                                            <div class="btn-group">
+                                                                <button type="button"
+                                                                        class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow ms-auto"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                                                        style="width: 30px; height: 30px;">
+                                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                                </button>
+                                                                <ul class="dropdown-menu dropdown-menu-end"
+                                                                    aria-labelledby="dropdown{{ book.id }}">
+                                                                    {% for status, status_name in accountsBooksStatuses.items %}
+                                                                        {% if book.status_number < status or book.status_number is None %}
+                                                                            <li>
+                                                                                <button name="status-edit"
+                                                                                        value="{{ status }},{{ book.id }}"
+                                                                                        class="dropdown-item">{{ status_name }}</button>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        {% endif %}
+                                                    </figure>
+                                                </div>
 
-                                        <div style="display: flex; align-items: center;">
 
-                                            <figure class="text-start mt-2"
+                                                {% if 'user_id' in request.session %}
 
-                                                    style="display: flex; align-items: center; flex-grow: 1;">
+                                                    {% if book.status is not None %}
 
-                                                <span class="star-icon"
+                                                        <span class="badge bg-label-{{ book.status_button }}">{{ book.status }}</span>
 
-                                                      style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
+                                                    {% endif %}
 
-                                                <span style="margin-left: 5px; color: royalblue;">{{ book.score }}</span>
-
-                                                {% if 'user_id' in request.session and book.status != accountsBooksStatusesText.COMPLETED %}
-                                                    <div class="btn-group">
-                                                        <button type="button"
-
-                                                                class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
-
-                                                                data-bs-toggle="dropdown" aria-expanded="false"
-
-                                                                style="margin-left: 90px; width: 30px; height: 30px;">
-
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
-
-                                                        </button>
-
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown{{ book.id }}">
-                                                            {% for status, status_name in accountsBooksStatuses.items %}
-                                                                {% if book.status_number < status or book.status_number is None %}
-                                                                    <li><button name="status-edit" value="{{ status }},{{ book.id }}" class="dropdown-item">{{ status_name }}</button></li>
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        </ul>
-                                                    </div>
                                                 {% endif %}
-                                            </figure>
-                                        </div>
 
-                                        {% if 'user_id' in request.session %}
 
-                                            {% if book.status is not None %}
-
-                                                <span class="badge bg-label-{{ book.status_button }}">{{ book.status }}</span>
-
-                                            {% endif %}
-
-                                        {% endif %}
-
+                                            </div>
 
 
                                     </div>
-
-
-
-
-
-                            </div>
+                                </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
+                    </div>
                 </div>
-              </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
     {% endif %}
     <!-- Content -->
     {% for section_name, books  in sections %}
         <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4">Подборка {{ section_name }}:</h4>
-        <form method="post">
-            <div class="row slider-row">
-              <div class="slider-container">
-                <div class="slider">
-                    {% csrf_token %}
-                    {% for book in books %}
-                         <div class="slider-item">
-                            <div class="card h-100">
+            <h4 class="fw-bold py-3 mb-4">Подборка {{ section_name }}:</h4>
+            <form method="post">
+                <div class="row slider-row">
+                    <div class="slider-container">
+                        <div class="slider">
+                            {% csrf_token %}
+                            {% for book in books %}
+                                <div class="slider-item">
+                                    <div class="card h-100">
 
-                                <a href="{% url 'view_book' book.id %}" class="text-black">
-
-
-
-                                    <img class="card-img-top" src="{{ book.pic_link }}" alt="Card image cap" width="auto"
-
-                                         height="300"/>
-
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            {{ book.book_name|slice:":15" }}{% if book.book_name|length > 15 %}...{% endif %}
-                                        </h5>
-
-                                        <a href="{% url 'view_book' book.id %}" class="text-black"></a>
-
-                                        <p class="card-text">
-
-                                            {% for author_id, author_name in book.authors %}
-
-                                                {{ author_name }} {% if not forloop.last %}, {% endif %}
-
-                                            {% endfor %}
-
-                                        </p>
+                                        <a href="{% url 'view_book' book.id %}" class="text-black">
 
 
+                                            <img class="card-img-top" src="{{ book.pic_link }}" alt="Card image cap"
+                                                 width="auto"
 
-                                        <div style="display: flex; align-items: center;">
+                                                 height="300"/>
 
-                                            <figure class="text-start mt-2"
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    {{ book.book_name|slice:":15" }}{% if book.book_name|length > 15 %}
+                                                        ...{% endif %}
+                                                </h5>
 
-                                                    style="display: flex; align-items: center; flex-grow: 1;">
+                                                <a href="{% url 'view_book' book.id %}" class="text-black"></a>
+
+                                                <p class="card-text">
+
+                                                    {% for author_id, author_name in book.authors %}
+
+                                                        {{ author_name }} {% if not forloop.last %}, {% endif %}
+
+                                                    {% endfor %}
+
+                                                </p>
+
+
+                                                <div style="display: flex; align-items: center;">
+
+                                                    <figure class="text-start mt-2"
+
+                                                            style="display: flex; align-items: center; flex-grow: 1;">
 
                                                 <span class="star-icon"
 
                                                       style="vertical-align: middle; color: royalblue; font-size: 16px; margin-left: 5px;">&#9733;</span>
 
-                                                <span style="margin-left: 5px; color: royalblue;">{{ book.score }}</span>
+                                                        <span style="margin-left: 5px; color: royalblue;">{{ book.score }}</span>
 
-                                                {% if 'user_id' in request.session and book.status != accountsBooksStatusesText.COMPLETED %}
-                                                    <div class="btn-group">
-                                                        <button type="button"
+                                                        {% if 'user_id' in request.session and book.status != accountsBooksStatusesText.COMPLETED %}
+                                                            <div class="btn-group">
+                                                                <button type="button"
 
-                                                                class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
+                                                                        class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow"
 
-                                                                data-bs-toggle="dropdown" aria-expanded="false"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false"
 
-                                                                style="margin-left: 90px; width: 30px; height: 30px;">
+                                                                        style="margin-left: 90px; width: 30px; height: 30px;">
 
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                                    <i class="bx bx-dots-vertical-rounded"></i>
 
-                                                        </button>
+                                                                </button>
 
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown{{ book.id }}">
-                                                            {% for status, status_name in accountsBooksStatuses.items %}
-                                                                {% if book.status_number < status or book.status_number is None %}
-                                                                    <li><button name="status-edit" value="{{ status }},{{ book.id }}" class="dropdown-item">{{ status_name }}</button></li>
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        </ul>
-                                                    </div>
+                                                                <ul class="dropdown-menu dropdown-menu-end"
+                                                                    aria-labelledby="dropdown{{ book.id }}">
+                                                                    {% for status, status_name in accountsBooksStatuses.items %}
+                                                                        {% if book.status_number < status or book.status_number is None %}
+                                                                            <li>
+                                                                                <button name="status-edit"
+                                                                                        value="{{ status }},{{ book.id }}"
+                                                                                        class="dropdown-item">{{ status_name }}</button>
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        {% endif %}
+                                                    </figure>
+                                                </div>
+
+                                                {% if 'user_id' in request.session %}
+
+                                                    {% if book.status is not None %}
+
+                                                        <span class="badge bg-label-{{ book.status_button }}">{{ book.status }}</span>
+
+                                                    {% endif %}
+
                                                 {% endif %}
-                                            </figure>
-                                        </div>
 
-                                        {% if 'user_id' in request.session %}
 
-                                            {% if book.status is not None %}
-
-                                                <span class="badge bg-label-{{ book.status_button }}">{{ book.status }}</span>
-
-                                            {% endif %}
-
-                                        {% endif %}
-
+                                            </div>
 
 
                                     </div>
-
-
-
-
-
-                            </div>
+                                </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
+                    </div>
                 </div>
-              </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
     {% endfor %}
 
     <script type="application/javascript">
-        $(document).ready(function() {
-          const slider = $('.slider');
-          const sliderRow = $('.slider-row');
-          const sliderItemWidth = $('.slider-item').outerWidth(true);
+        $(document).ready(function () {
+            const slider = $('.slider');
+            const sliderRow = $('.slider-row');
+            const sliderItemWidth = $('.slider-item').outerWidth(true);
 
-          // Calculate total width of the slider
-          const totalWidth = sliderItemWidth * $('.slider-item').length;
-          slider.css('width', totalWidth);
+            // Calculate total width of the slider
+            const totalWidth = sliderItemWidth * $('.slider-item').length;
+            slider.css('width', totalWidth);
 
-          // Handle slider navigation
-          $('.slider-next').on('click', function() {
-            sliderRow.scrollLeft(sliderRow.scrollLeft() + sliderItemWidth);
-          });
+            // Handle slider navigation
+            $('.slider-next').on('click', function () {
+                sliderRow.scrollLeft(sliderRow.scrollLeft() + sliderItemWidth);
+            });
 
-          $('.slider-prev').on('click', function() {
-            sliderRow.scrollLeft(sliderRow.scrollLeft() - sliderItemWidth);
-          });
+            $('.slider-prev').on('click', function () {
+                sliderRow.scrollLeft(sliderRow.scrollLeft() - sliderItemWidth);
+            });
         });
     </script>
-
 
 
     {% include 'home/blocks/footer.html' %}
